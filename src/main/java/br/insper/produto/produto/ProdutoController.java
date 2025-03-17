@@ -25,7 +25,7 @@ public class ProdutoController {
     }
 
     // Rota para diminuir a quantidade de um produto no estoque
-    // Exemplo de chamada: PATCH /api/produto/1/diminuir
+    // Exemplo de chamada: PUT /api/produto/1/diminuir
     @PutMapping("/{id}/diminuir")
     public Produto diminuirEstoque(@PathVariable String id) {
         return produtoService.diminuirEstoque(id);
@@ -35,5 +35,11 @@ public class ProdutoController {
     @GetMapping("/disponiveis")
     public List<Produto> getProdutosDisponiveis() {
         return produtoService.getProdutosDisponiveis();
+    }
+
+    // Nova rota para listar todos os produtos
+    @GetMapping
+    public List<Produto> getProdutos() {
+        return produtoService.getProdutos();
     }
 }

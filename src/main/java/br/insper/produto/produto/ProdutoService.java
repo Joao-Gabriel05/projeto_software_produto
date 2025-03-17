@@ -15,9 +15,17 @@ public class ProdutoService {
     private ProdutoRepository produtoRepository;
 
     public Produto saveProduto(Produto produto) {
+        if (produto.getNome() == null || produto.getNome().trim().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O campo nome é obrigatório");
+        }
+        if (produto.getPreco() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O campo preco é obrigatório");
+        }
+        if (produto.getEstoque() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O campo estoque é obrigatório");
+        }
         return produtoRepository.save(produto);
     }
-
     public Produto findProdutoById(String id) {
         Optional<Produto> produto = produtoRepository.findById(id);
         if (produto.isEmpty()) {
@@ -36,5 +44,10 @@ public class ProdutoService {
     public List<Produto> getProdutosDisponiveis() {
         // É esperado que ProdutoRepository declare o método findByEstoqueGreaterThan(int estoque)
         return produtoRepository.findByEstoqueGreaterThan(0);
+    }
+
+    // Nova função para retornar todos os produtos
+    public List<Produto> getProdutos() {
+        return produtoRepository.findAll();
     }
 }
