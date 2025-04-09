@@ -57,5 +57,11 @@ jobs:
         script: |
           docker stop produto
           docker rm --force produto
-          docker run -d -p 8082:8082 -e REDIS_HOST=redis --name produto --network=rede joaofaraco05/produto-ci:${{ github.sha }}
+          docker run -d -p 8082:8082 \
+            -e USER_DB=${{ secrets.USER_DB }} \
+            -e PASS_DB=${{ secrets.PASS_DB }} \
+            -e PATH_DB=${{ secrets.PATH_DB }} \
+            -e NAME_DB=${{ secrets.NAME_DB }} \
+            -e REDIS_HOST=redis \
+            --name produto --network=rede joaofaraco05/produto-ci:${{ github.sha }}
 
