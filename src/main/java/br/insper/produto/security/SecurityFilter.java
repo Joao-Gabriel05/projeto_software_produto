@@ -1,7 +1,6 @@
 package br.insper.produto.security;
 
 import br.insper.produto.login.LoginService;
-import br.insper.produto.usuario.UsuarioService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
