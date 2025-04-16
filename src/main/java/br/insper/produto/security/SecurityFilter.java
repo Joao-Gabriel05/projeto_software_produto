@@ -27,14 +27,13 @@ public class SecurityFilter extends OncePerRequestFilter {
         String path = request.getRequestURI();
         String method = request.getMethod();
 
-        if (path.equals("/api/usuario") && method.equals(HttpMethod.POST.name())) {
-            filterChain.doFilter(request, response);
-        } else if (path.equals("/api/login")) {
-            filterChain.doFilter(request, response);
-        } else {
+        if ( method.equals(HttpMethod.POST.name())) {
             String token = request.getHeader("Authorization");
 
             loginService.validateToken(token);
+            filterChain.doFilter(request, response);
+        } else {
+
             filterChain.doFilter(request, response);
         }
     }
