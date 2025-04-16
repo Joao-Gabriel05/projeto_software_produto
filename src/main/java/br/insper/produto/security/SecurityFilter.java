@@ -1,6 +1,7 @@
 package br.insper.produto.security;
 
 import br.insper.produto.login.LoginService;
+import br.insper.produto.usuario.Usuario;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -30,8 +31,12 @@ public class SecurityFilter extends OncePerRequestFilter {
         if ( method.equals(HttpMethod.POST.name())) {
             String token = request.getHeader("Authorization");
             Usuario user = loginService.validateToken(token);
-            if(user.getPapel.equals('ADMIN')){
+            if(user.getPapel().equals("ADMIN")){
             filterChain.doFilter(request, response);
+            }
+            else{
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Método não permitido para esse usuário");
+                return;
             }
         } else {
 
