@@ -35,7 +35,6 @@ public class SecurityFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             }
             else{
-                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Método não permitido para esse usuário");
                 return;
             }
         } else {
