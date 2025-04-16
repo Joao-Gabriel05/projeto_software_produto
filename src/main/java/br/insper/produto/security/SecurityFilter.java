@@ -29,9 +29,10 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         if ( method.equals(HttpMethod.POST.name())) {
             String token = request.getHeader("Authorization");
-
-            loginService.validateToken(token);
+            Usuario user = loginService.validateToken(token);
+            if(user.getPapel.equals('ADMIN')){
             filterChain.doFilter(request, response);
+            }
         } else {
 
             filterChain.doFilter(request, response);
